@@ -27,8 +27,8 @@ try {
             var text = msg.content.substring(1);
             parts = text.split(" ");
             if(parts[0] == "add"){
-                drive('sourhead5@gmail.com');
-                msg.reply(text);
+                drive(parts[1]);
+                msg.reply('Added ' + parts[1] + ' to the google docs folder.');
             }
             else if(parts[0] == "say"){
                 var toUser = channel.members.find('displayName', parts[3]); //.find('nickname', parts[3]); //members.get('username', parts[3]);
@@ -44,6 +44,10 @@ try {
             else if(parts[0] == "name")
             {
                 msg.reply(msg.author.username);
+            }
+            else if(parts[0] == 'help')
+            {
+                msg.reply('\nuse [!add [email]] to add your email to the google docs.\nuse [!say [word] to [user]] to have me say something to another user\nuse [!name] for your username (this feature was for bug testing, but it was left here for the: "lolz")');
             }
         }
     });
