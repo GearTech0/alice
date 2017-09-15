@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Alice mautomates many things in the discord chat",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GearTech0/alice.git"
@@ -24,6 +21,8 @@
   },
   "homepage": "https://github.com/GearTech0/alice#readme",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.2.1",
+    "google-auth-library": "^0.11.0",
+    "googleapis": "^21.3.0"
   }
 }
