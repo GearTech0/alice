@@ -1,0 +1,29 @@
+{
+  "name": "alice",
+  "version": "1.0.0",
+  "description": "Alice mautomates many things in the discord chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GearTech0/alice.git"
+  },
+  "keywords": [
+    "alice",
+    "processes",
+    "bot",
+    "group",
+    "no"
+  ],
+  "author": "Daquaris Chadwick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GearTech0/alice/issues"
+  },
+  "homepage": "https://github.com/GearTech0/alice#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
