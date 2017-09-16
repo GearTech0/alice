@@ -2,6 +2,7 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+var async = require('async');
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/drive-nodejs-quickstart.json
@@ -113,5 +114,32 @@ function storeToken(token) {
  */
 function addEmail(auth, email, fileId) {
   var service = google.drive('v3');
-  var file = service.files.get(fileId);
+//  var file = service.files.get(fileId);
+  var permission = [{
+      'type': 'user',
+      'role': 'writer',
+      'emailAddress': email
+  }];
+
+  async.eachSeries(permission, (permission, permissionCallback) => {
+      service.permissions.create({
+          auth: auth,
+          resource: permission,
+          fileId: fileId,
+          fields: 'id',
+      }, (err, res) => {
+          if (err) {
+              console.error(err);
+              permissionCallback(err);
+          } else {
+              console.log('Permission ID: ', res.id);
+              permissionCallback();
+          }
+       });
+  }, (err) => {
+      if (err)
+          console.log(err);
+      else
+          console.log('Permissions have been added');
+   });
 }
