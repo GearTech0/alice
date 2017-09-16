@@ -7,45 +7,38 @@ var bot = new discord.Client();
 const token = info.token;
 
 bot.on('message', function (msg) {
+
     var channel = msg.channel;
-    if(msg.author.bot) return;
-    if(msg.content.indexOf('!') === 0){
+
+    if (msg.author.bot) return;
+
+    if (msg.content.indexOf('!') === 0) {
+
         var text = msg.content.substring(1);
+
         parts = text.split(" ");
+
         if (parts[0] == "add") {
             if (parts.length <= 1) {
-                msg.reply('Please use the format: !add [email]').catch((err) => {
-                    console.log(err);
-                });
+                msg.reply('Please use the format: !add [email]').catch(messageHandler);
             } else {
                 drive(parts[1], info.fileId);
-                msg.reply('Added ' + parts[1] + ' to the google docs folder.').catch((err) => {
-                    console.log(err);
-                });
+                msg.reply('Added ' + parts[1] + ' to the google docs folder.').catch(messageHandler);
             }
         }
         else if(parts[0] == "say"){
-            var toUser = channel.members.find('displayName', parts[3]); //.find('nickname', parts[3]); //members.get('username', parts[3]);
-            //toUser.sendMessage(parts[1]);
+            let toUser = channel.members.find('displayName', parts[3]);
             if(toUser != null)
-                channel.send(parts[1] + " " + toUser).catch((err) => {
-                    console.log(err);
-                });
+                channel.send(parts[1] + " " + toUser).catch(messageHandler);
             else
-                channel.send(parts[3] + " does not seem like a user. Please use the user's Username.").catch((err) => {
-                    console.log(err);
-                });
+                channel.send(parts[3] + " does not seem like a user. Please use the user's Username.").catch(messageHandler);
         }
         else if(parts[0] == "bow" && msg.author.username == "TheOneWhoStands"){
-            channel.send("*Bows to my creator*").catch((err) => {
-                console.log(err);
-            });
+            channel.send("*Bows to my creator*").catch(messageHandler);
         }
         else if(parts[0] == "name")
         {
-            msg.reply(msg.author.username).catch((err) => {
-                console.log(err);
-            });
+            msg.reply(msg.author.username).catch(messageHandler);
         }
         else if(parts[0] == 'help')
         {
@@ -63,28 +56,24 @@ bot.on('message', function (msg) {
                 helpText += '\n' + text;
             }
 
-            msg.reply(helpText).catch((err) => {
-                console.log(err);
-            });
+            msg.reply(helpText).catch(messageHandler);
         }
         else if (parts[0] == 'thnx')
         {
-            msg.reply('My pleasure.').catch((err) => {
-                console.log(err);
-            });
+            msg.reply('My pleasure.').catch(messageHandler);
         }
         else if (parts[0] == 'github')
         {
-            msg.reply('The github link to my programming is: ' + info.githubLink).catch((err) => {
-                console.log(err);
-            });
+            msg.reply('The github link to my programming is: ' + info.githubLink).catch(messageHandler);
         }
         else if (parts[0] == 'version')
         {
-            msg.reply('My version number: ' + pjson.version).catch((err) => {
-                console.log(err);
-            });
+            msg.reply('My version number: ' + pjson.version).catch(messageHandler);
         }
     }
 });
 bot.login(token);
+
+function messageHandler(err) {
+    console.log(err);
+}
