@@ -6,15 +6,25 @@ const pjson = require('./package.json');
 var bot = new discord.Client();
 const token = info.token;
 
+/**
+* TODO:
+*  Put on dedicated server
+*  On Disconnect parting message
+*  Other google functions and cool stuff 
+*/
+
 bot.on('message', function (msg) {
 
-    var channel = msg.channel;
-
+    // Abort if a bot has sent a message
     if (msg.author.bot) return;
 
+    // Current channel 
+    let channel = msg.channel;
+
+    // Start message token
     if (msg.content.indexOf('!') === 0) {
 
-        var text = msg.content.substring(1);
+        let text = msg.content.substring(1);
 
         parts = text.split(" ");
 
@@ -72,8 +82,21 @@ bot.on('message', function (msg) {
         }
     }
 });
+
+// On bot ready
+bot.on('ready', () => {
+
+});
+
+// On bot disconnect
+bot.on('disconnect', (event) => {
+
+});
+
+// Login to discord server
 bot.login(token);
 
+// Used to handle message sending promises 
 function messageHandler(err) {
     console.log(err);
 }
