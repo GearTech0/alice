@@ -1,7 +1,9 @@
 const info = require('./security-info.js');
-const discord = require('discord.js');
 const drive = require('./drive-api.js');
 const pjson = require('./package.json');
+const email = require('./email-tracker.js');
+
+const discord = require('discord.js');
 
 var bot = new discord.Client();
 const token = info.token;
@@ -30,10 +32,29 @@ bot.on('message', function (msg) {
 
         if (parts[0] == "add") {
             if (parts.length <= 1) {
-                msg.reply('Please use the format: !add [email]').catch(messageHandler);
-            } else {
-                drive(parts[1], info.fileId);
-                msg.reply('Added ' + parts[1] + ' to the google docs folder.').catch(messageHandler);
+                msg.reply('Please use the format: `!add [email]` or `!add [email] [fileID]`').catch(messageHandler);
+            } else if (parts.length == 2) {
+                email.isFound(parts[1], info.fileId, (found) => {
+                    if (found) {
+                        msg.reply('You have already been shared to that file. Please check your email');
+                    }
+                    else {
+                        drive(parts[1], info.fileId);
+                        msg.reply('Added ' + parts[1] + ' to the google docs folder.').catch(messageHandler);
+                        email.add(parts[1], info.fileId);
+                    }
+                });
+            } else if (parts.length == 3) {
+                email.isFound(parts[1], parts[2], (found) => {
+                    if (found) {
+                        msg.reply('You have already been shared to that file. Please check your email');
+                    }
+                    else {
+                        drive(parts[1], parts[2]);
+                        msg.reply('Added ' + parts[1] + ' to the folderId.').catch(messageHandler);
+                        email.add(parts[1], parts[2]);
+                    }
+                });
             }
         }
         else if(parts[0] == "say"){
@@ -53,7 +74,7 @@ bot.on('message', function (msg) {
         else if(parts[0] == 'help')
         {
             let help = [
-                'use `!add [email]` to add your email to the google docs.',
+                'use `!add [email]` to share the google docs to [email]. Remember to accept the email verification!',
                 'use `!say [word] to [user]` to have me say something to another user',
                 'use `!name` for your username. (This feature was for bug testing, but it was left here for the "lolz")',
                 'use `!thnx` to thank me :)',
