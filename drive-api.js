@@ -108,9 +108,11 @@ function storeToken(token) {
 }
 
 /**
- * Lists the names and IDs of up to 10 files.
+ * Sends an email request to {email} to share the {fileId}
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ * @param {String} email email to share {fileId} to
+ * @param {String} fileId id of file
  */
 function addEmail(auth, email, fileId) {
   var service = google.drive('v3');
