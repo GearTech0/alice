@@ -12,13 +12,13 @@ var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 var parse = "";
 
 // Load client secrets from a local file.
-module.exports = function (email){
+module.exports = function (email, fileId){
     fs.readFile('client_secret.json', function(err, contents){
         if (err) {
             console.log('Error loading client secret file: ' + err);
             return;
         }
-        authorize(JSON.parse(contents), addEmail, email);
+        authorize(JSON.parse(contents), addEmail, email, fileId);
     });
 };
 
@@ -39,7 +39,7 @@ module.exports = function (email){
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, email) {
+function authorize(credentials, callback, email, fileId) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
@@ -52,7 +52,7 @@ function authorize(credentials, callback, email) {
       getNewToken(oauth2Client, callback);
     } else {
       oauth2Client.credentials = JSON.parse(token);
-      callback(oauth2Client, email);
+      callback(oauth2Client, email, fileId);
     }
   });
 }
@@ -111,26 +111,7 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function addEmail(auth, email) {
+function addEmail(auth, email, fileId) {
   var service = google.drive('v3');
-  service.files.list({
-    auth: auth,
-    pageSize: 10,
-    fields: "nextPageToken, files(id, name)"
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
-    }
-    var files = response.files;
-    if (files.length == 0) {
-      console.log('No files found.');
-    } else {
-      console.log('Files:');
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        console.log('%s (%s)', file.name, file.id);
-      }
-    }
-  });
+  var file = service.files.get(fileId);
 }
