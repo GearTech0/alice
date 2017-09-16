@@ -43,7 +43,7 @@ bot.on('message', function (msg) {
             else
                 channel.send(parts[3] + " does not seem like a user. Please use the user's Username.").catch(messageHandler);
         }
-        else if(parts[0] == "bow" && msg.author.username == "TheOneWhoStands"){
+        else if (parts[0] == "bow" && msg.author.username == info.username) {
             channel.send("*Bows to my creator*").catch(messageHandler);
         }
         else if(parts[0] == "name")
