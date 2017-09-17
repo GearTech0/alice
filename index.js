@@ -114,7 +114,7 @@ if (cluster.isMaster) {
                 msg.reply(helpText).catch(messageHandler);
             }
             else if (parts[0] == 'thnx') {
-                msg.reply('My Pleasure.').catch(messageHandler);
+                msg.reply('My pleasure.').catch(messageHandler);
             }
             else if (parts[0] == 'github') {
                 msg.reply('The github link to my programming is: ' + GITHUB).catch(messageHandler);
