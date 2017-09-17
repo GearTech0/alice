@@ -23,6 +23,12 @@ bot.on('message', function (msg) {
     // Current channel 
     let channel = msg.channel;
 
+    // 
+    if (msg.content.toLowerCase().startsWith("fuck you") && msg.author.username == info.username)
+    {
+        channel.send('Yeah, fuck you!').catch(messageHandler);
+    }
+
     // Start message token
     if (msg.content.indexOf('!') === 0) {
 
@@ -58,9 +64,16 @@ bot.on('message', function (msg) {
             }
         }
         else if(parts[0] == "say"){
-            let toUser = channel.members.find('displayName', parts[3]);
-            if(toUser != null)
-                channel.send(parts[1] + " " + toUser).catch(messageHandler);
+            let toUser = channel.members.find('displayName', parts[parts.length-1]);
+            if (toUser != null) {
+                let sayString = "";
+                for (let i = 1; i < parts.length; i++)
+                {
+                    if (parts[i] == "to") break;
+                    sayString += parts[i] + ' ';
+                }
+                channel.send(sayString + " " + toUser).catch(messageHandler);
+            }
             else
                 channel.send(parts[3] + " does not seem like a user. Please use the user's Username.").catch(messageHandler);
         }
