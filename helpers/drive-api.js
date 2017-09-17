@@ -14,7 +14,7 @@ var parse = "";
 
 // Load client secrets from a local file.
 module.exports = function (email, fileId){
-    fs.readFile('client_secret.json', function(err, contents){
+    fs.readFile('./helpers/client_secret.json', function(err, contents){
         if (err) {
             console.log('Error loading client secret file: ' + err);
             return;

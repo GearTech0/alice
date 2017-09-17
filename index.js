@@ -1,9 +1,14 @@
-const info = require('./security-info.js');
-const drive = require('./drive-api.js');
+const info = require('./helpers/security-info.js');
+const drive = require('./helpers/drive-api.js');
 const pjson = require('./package.json');
-const email = require('./email-tracker.js');
+const email = require('./helpers/email-tracker.js');
+
 
 const discord = require('discord.js');
+const exec = require('child_process').exec;
+
+const GITHUB = 'https://github.com/GearTech0/alice';
+const CREATOR = 'TheOneWhoStands';
 
 var bot = new discord.Client();
 const token = info.token;
@@ -24,7 +29,7 @@ bot.on('message', function (msg) {
     let channel = msg.channel;
 
     // 
-    if (msg.content.toLowerCase().startsWith("fuck you") && msg.author.username == info.username)
+    if (msg.content.toLowerCase().startsWith("fuck you") && msg.author.username == CREATOR)
     {
         channel.send('Yeah, fuck you!').catch(messageHandler);
     }
@@ -34,9 +39,9 @@ bot.on('message', function (msg) {
 
         let text = msg.content.substring(1);
 
-        parts = text.split(" ");
+        parts = text.split(' ');
 
-        if (parts[0] == "add") {
+        if (parts[0] == 'add') {
             if (parts.length <= 1) {
                 msg.reply('Please use the format: `!add [email]` or `!add [email] [fileID]`').catch(messageHandler);
             } else if (parts.length == 2) {
@@ -63,7 +68,7 @@ bot.on('message', function (msg) {
                 });
             }
         }
-        else if(parts[0] == "say"){
+        else if(parts[0] == 'say'){
             let toUser = channel.members.find('displayName', parts[parts.length-1]);
             if (toUser != null) {
                 let sayString = "";
@@ -77,10 +82,10 @@ bot.on('message', function (msg) {
             else
                 channel.send(parts[3] + " does not seem like a user. Please use the user's Username.").catch(messageHandler);
         }
-        else if (parts[0] == "bow" && msg.author.username == info.username) {
+        else if (parts[0] == 'bow' && msg.author.username == CREATOR) {
             channel.send("*Bows to my creator*").catch(messageHandler);
         }
-        else if(parts[0] == "name")
+        else if(parts[0] == 'name')
         {
             msg.reply(msg.author.username).catch(messageHandler);
         }
@@ -108,11 +113,29 @@ bot.on('message', function (msg) {
         }
         else if (parts[0] == 'github')
         {
-            msg.reply('The github link to my programming is: ' + info.githubLink).catch(messageHandler);
+            msg.reply('The github link to my programming is: ' + GITHUB).catch(messageHandler);
         }
         else if (parts[0] == 'version')
         {
             msg.reply('My version number: ' + pjson.version).catch(messageHandler);
+        }
+        else if (parts[0] == 'update')
+        {
+            // Update the bot
+
+            exec('bash ./helpers/update.sh', (err, stdout, stderr) => {
+                if (err)
+                {
+                    console.log('Error: ' + err);
+                }
+                console.log(stdout);
+            });
+
+            channel.send('Updated to newest version.').catch(messageHandler);
+
+            // Logout
+            // git pull origin master
+            // node index
         }
     }
 });

@@ -1,3 +1,4 @@
-security-info.js
-client_secret.json
-emails-to-fileIds.et
+helpers/security-info.js
+helpers/client_secret.json
+helpers/emails-to-fileIds.et
+files/*
