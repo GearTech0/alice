@@ -100,13 +100,14 @@ if (cluster.isMaster) {
             else if (parts[0] == 'help') {
                 let help = [
                     'use `!add [email]` to share the google docs to [email]. Remember to accept the email verification!',
-                    'use `!say [word] to [user]` to have me say something to another user',
+                    'use `!say [sentence] to [user]` to have me say something to another user.',
                     'use `!name` for your username. (This feature was for bug testing, but it was left here for the "lolz")',
                     'use `!thnx` to thank me :)',
                     'use `!github` to view the github link for my project.',
-                    'use `!version` to view my version number'
+                    'use `!version` to view my version number.',
+                    'use `!update` to update me to my most recent version.'
                 ];
-                let helpText = "";
+                let helpText = '';
                 for (let text of help) {
                     helpText += '\n' + text;
                 }
