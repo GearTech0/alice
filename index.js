@@ -133,7 +133,9 @@ if (cluster.isMaster) {
                     }
                     console.log(stdout);
                     channel.send('Updated to newest version.').catch(messageHandler);
-                    process.exit();
+                    setTimeout(() => {
+                        process.exit();
+                    }, 1000);
                 });
 
                 // Logout
