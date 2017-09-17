@@ -123,7 +123,7 @@ if (cluster.isMaster) {
             else if (parts[0] == 'version') {
                 msg.reply('My version number: ' + pjson.version).catch(messageHandler);
             }
-            else if (parts[0] == 'update') {
+            else if (parts[0] == 'update' && msg.author.username == CREATOR) {
                 // Update the bot
                 channel.send('Updating...').catch(messageHandler);
                 exec('git pull origin master', (err, stdout, stderr) => {
