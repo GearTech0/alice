@@ -131,16 +131,14 @@ if (cluster.isMaster) {
                         channel.send('Cannot pull...').catch(messageHandler);
                         return;
                     }
-                    console.log(stdout);
-                    channel.send('Updated to newest version.').catch(messageHandler);
+                    if (stderr.toLocaleLowerCase().localeCompare('already up-to-date.') == 0)
+                        channel.send('Already up-to-date.').catch(messageHandler);
+                    else 
+                        channel.send('Updated to newest version.').catch(messageHandler);
                     setTimeout(() => {
                         process.exit();
                     }, 1000);
                 });
-
-                // Logout
-                // git pull origin master
-                // node index
             }
         }
     });
