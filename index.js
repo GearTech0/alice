@@ -135,7 +135,7 @@ if (cluster.isMaster) {
                     if (stderr.toLocaleLowerCase().localeCompare('already up-to-date.') == 0)
                         channel.send('Already up-to-date.').catch(messageHandler);
                     else
-                        channel.send('Updated to newest version.\n' + stdout).catch(messageHandler);
+                        channel.send('Updated to newest version.').catch(messageHandler);
                     setTimeout(() => {
                         process.exit();
                     }, 1000);
