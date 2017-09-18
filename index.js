@@ -1,4 +1,4 @@
-const info = require('./helpers/security-info.js');
+const info = require('./helpers/security-info.json');
 const drive = require('./helpers/drive-api.js');
 const pjson = require('./package.json');
 const email = require('./helpers/email-tracker.js');
@@ -18,7 +18,7 @@ const token = info.token;
 * TODO:
 *  Put on dedicated server
 *  On Disconnect parting message
-*  Other google functions and cool stuff 
+*  Other google functions and cool stuff
 */
 
 if (cluster.isMaster) {
@@ -36,10 +36,10 @@ if (cluster.isMaster) {
         // Abort if a bot has sent a message
         if (msg.author.bot) return;
 
-        // Current channel 
+        // Current channel
         let channel = msg.channel;
 
-        // 
+        //
         if (msg.content.toLowerCase().startsWith("fuck you") && msg.author.username == CREATOR) {
             channel.send('Yeah, fuck you!').catch(messageHandler);
         }
@@ -160,7 +160,7 @@ if (cluster.isMaster) {
     });
 }
 
-// Used to handle message sending promises 
+// Used to handle message sending promises
 function messageHandler(err) {
     console.log(err);
 }
