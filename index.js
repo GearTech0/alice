@@ -155,7 +155,9 @@ if (cluster.isMaster) {
     });
 
     // Login to discord server
-    bot.login(token);
+    bot.login(token).catch((err) => {
+        console.log(err);
+    });
 }
 
 // Used to handle message sending promises 
