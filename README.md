@@ -2,8 +2,10 @@
 A discord bot to moderate my processes group and automate things that I don't want to repeat over and over again.
 
 ## Versions
-1.0.2 beta - Ability to update. Runs on own dedicated server.
-1.0.1 - basic commands with file sharing capabilities
+1.0.2 beta - Ability to update. Runs on own dedicated server.<br />
+![Help Command](https://i.imgur.com/RCuArqV.png)<br />
+![Update Command](https://i.imgur.com/Lv5z9nN.png)<br />
+1.0.1 - basic commands with file sharing capabilities<br />
 
 ## Current Commands
 !help - a list of commands<br />
