@@ -1,4 +1,4 @@
-const info = require('./helpers/security-info.json');
+const info = require('./helpers/security-info.js');
 const drive = require('./helpers/drive-api.js');
 const pjson = require('./package.json');
 const email = require('./helpers/email-tracker.js');
