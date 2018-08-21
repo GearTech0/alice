@@ -83,6 +83,7 @@ if (cluster.isMaster) {
 				
 				} else if(parts.length == 2){
 					info.fileId = parts[1];
+					msg.reply("Set file id to: " + parts[1]).catch(messageHandler);
 				}
 			}
             else if (parts[0] == 'say') {
