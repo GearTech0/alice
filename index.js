@@ -83,7 +83,7 @@ if (cluster.isMaster) {
 				
 				} else if(parts.length == 2){
 					info.fileId = parts[1];
-					msg.reply("Set file id to: " + parts[1]).catch(messageHandler);
+					msg.reply("Set file id to: " + info.fileId).catch(messageHandler);
 				}
 			}
             else if (parts[0] == 'say') {
@@ -113,7 +113,8 @@ if (cluster.isMaster) {
                     'use `!thnx` to thank me :)',
                     'use `!github` to view the github link for my project.',
                     'use `!version` to view my version number.',
-                    'use `!update` to update me to my most recent version.'
+                    'use `!update` to update me to my most recent version.',
+					'use `!set [fileid]` to set a new file id for the add command'
                 ];
                 let helpText = '';
                 for (let text of help) {
