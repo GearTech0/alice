@@ -122,6 +122,8 @@ function addEmail(auth, email, fileId) {
       'role': 'writer',
       'emailAddress': email
   }];
+  
+  // TODO: Add error response when fileid is bad
 
   async.eachSeries(permission, (permission, permissionCallback) => {
       service.permissions.create({

@@ -78,6 +78,13 @@ if (cluster.isMaster) {
                     });
                 }
             }
+			else if (parts[0] == 'set'){
+				if(parts.length >= 3 || parts.length <= 1) {
+				
+				} else if(parts.length == 2){
+					info.fileId = parts[1];
+				}
+			}
             else if (parts[0] == 'say') {
                 let toUser = channel.members.find('displayName', parts[parts.length - 1]);
                 if (toUser != null) {
